@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HardDisks</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Enter">Войти</string>
+    <string name="password">Пароль</string>
+    <string name="email">Почта</string>
+    <string name="forgetPassword">Забыли пароль?</string>
 </resources>

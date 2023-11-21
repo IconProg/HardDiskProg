@@ -9,7 +9,14 @@
         android:id="@+id/authorization"
         android:name="com.example.harddisks.AuthPages.AuthorizationFragment"
         android:label="fragment_autorization"
-        tools:layout="@layout/fragment_authorization" />
+        tools:layout="@layout/fragment_authorization" >
+        <action
+            android:id="@+id/action_authorization_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_authorization_to_registration"
+            app:destination="@id/registration" />
+    </fragment>
     <fragment
         android:id="@+id/registration"
         android:name="com.example.harddisks.AuthPages.RegistrationFragment"
@@ -31,4 +38,9 @@
             android:id="@+id/action_greeting_to_registration"
             app:destination="@id/registration" />
     </fragment>
+    <activity
+        android:id="@+id/mainPage"
+        android:name="com.example.harddisks.MainPages.MainPage"
+        android:label="main_page_activity"
+        tools:layout="@layout/main_page_activity" />
 </navigation>

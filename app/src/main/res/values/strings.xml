@@ -5,4 +5,11 @@
     <string name="password">Пароль</string>
     <string name="email">Почта</string>
     <string name="forgetPassword">Забыли пароль?</string>
+    <string name="welcome">Добро пожаловать в информационно справочную систему про жесткие диски</string>
+    <string name="thisProg">Это программа предназначена для хранения и отображения информации о жестких дисках</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="confirmedPassword">Подветверждение пароля</string>
+    <string name="passwordRule">Используйте больше 8 символов, цифры и специальные знаки</string>
+    <string name="regWithEmail">Зарегистрироваться при помощью почты</string>
+    <string name="haveAcc">Уже имеете аккаунт?</string>
 </resources>

@@ -7,16 +7,7 @@
     android:background="@color/blackForBackground"
     tools:context=".AuthPages.AuthorizationFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/forgetPassword"
-        android:textColor="@color/Blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_auth" />
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -38,6 +29,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/edittext_background"
         android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +45,8 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/edittext_background"
         android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,12 +54,12 @@
         app:layout_constraintTop_toBottomOf="@+id/email_auth" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/Enter"
+        android:id="@+id/enterAuth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/goodWhite"
         android:text="@string/Enter"
@@ -73,5 +67,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_auth" />
+
+    <TextView
+        android:id="@+id/noAcc"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="Нет аккаунта?"
+        android:textColor="@color/goodWhite"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterAuth"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/regAuth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/goodWhite"
+        android:text="@string/registration"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noAcc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

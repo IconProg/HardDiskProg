@@ -1,11 +1,14 @@
 package com.example.harddisks.AuthPages;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -15,13 +18,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.harddisks.MainPages.MainPage;
 import com.example.harddisks.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthorizationFragment extends Fragment {
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public interface OnAuthorizationSuccessListener {
+        void onAuthorizationSuccess();
+    }
 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private OnAuthorizationSuccessListener listener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnAuthorizationSuccessListener) {
+            listener = (OnAuthorizationSuccessListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnAuthorizationSuccessListener");
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_authorization, container, false);
@@ -45,7 +63,7 @@ public class AuthorizationFragment extends Fragment {
                 mAuth.signInWithEmailAndPassword(login.getText().toString(), password.getText().toString()).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // navController.popBackStack();
-                        navController.navigate(R.id.action_authorization_to_mainPage);
+                        listener.onAuthorizationSuccess();
                     } else {
                         Toast.makeText(getContext(), "Логин или пароль введены неверно", Toast.LENGTH_LONG).show();
                     }
@@ -60,7 +78,8 @@ public class AuthorizationFragment extends Fragment {
             navController.navigate(R.id.action_authorization_to_registration);
         });
 
-
+//        NavDirections actionToFirstGraph = CombinedGraphFragmentDirections.actionToFirstGraph();
+//        Navigation.findNavController(view).navigate(actionToFirstGraph);
 
     }
 }

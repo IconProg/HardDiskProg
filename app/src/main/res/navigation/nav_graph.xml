@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
@@ -11,11 +12,9 @@
         android:label="fragment_autorization"
         tools:layout="@layout/fragment_authorization" >
         <action
-            android:id="@+id/action_authorization_to_mainPage"
-            app:destination="@id/mainPage" />
-        <action
             android:id="@+id/action_authorization_to_registration"
             app:destination="@id/registration" />
+
     </fragment>
     <fragment
         android:id="@+id/registration"
@@ -38,9 +37,4 @@
             android:id="@+id/action_greeting_to_registration"
             app:destination="@id/registration" />
     </fragment>
-    <activity
-        android:id="@+id/mainPage"
-        android:name="com.example.harddisks.MainPages.MainPage"
-        android:label="main_page_activity"
-        tools:layout="@layout/main_page_activity" />
 </navigation>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main_page"
+    app:startDestination="@id/disksFragment">
+
+    <fragment
+        android:id="@+id/disksFragment"
+        android:name="com.example.harddisks.MainPages.DisksFragment"
+        android:label="fragment_disks"
+        tools:layout="@layout/fragment_disks" >
+        <action
+            android:id="@+id/action_disksFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_disksFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_disksFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_disksFragment_to_comprasionFragment"
+            app:destination="@id/comprasionFragment" />
+        <action
+            android:id="@+id/action_disksFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorFragment"
+        android:name="com.example.harddisks.MainPages.AuthorFragment"
+        android:label="fragment_author"
+        tools:layout="@layout/fragment_author" >
+        <action
+            android:id="@+id/action_authorFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_comprasionFragment"
+            app:destination="@id/comprasionFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comprasionFragment"
+        android:name="com.example.harddisks.MainPages.ComprasionFragment"
+        android:label="fragment_comprasion"
+        tools:layout="@layout/fragment_comprasion" >
+        <action
+            android:id="@+id/action_comprasionFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_comprasionFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_comprasionFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_comprasionFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_comprasionFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.harddisks.MainPages.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_comprasionFragment"
+            app:destination="@id/comprasionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/instructionManualFragment"
+        android:name="com.example.harddisks.MainPages.InstructionManualFragment"
+        android:label="fragment_instruction_manual"
+        tools:layout="@layout/fragment_instruction_manual" >
+        <action
+            android:id="@+id/action_instructionManualFragment_to_comprasionFragment"
+            app:destination="@id/comprasionFragment" />
+        <action
+            android:id="@+id/action_instructionManualFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_instructionManualFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_instructionManualFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_instructionManualFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/programInfoFragment"
+        android:name="com.example.harddisks.MainPages.ProgramInfoFragment"
+        android:label="fragment_program_info"
+        tools:layout="@layout/fragment_program_info" >
+        <action
+            android:id="@+id/action_programInfoFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_programInfoFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_programInfoFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_programInfoFragment_to_comprasionFragment"
+            app:destination="@id/comprasionFragment" />
+        <action
+            android:id="@+id/action_programInfoFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
+</navigation>

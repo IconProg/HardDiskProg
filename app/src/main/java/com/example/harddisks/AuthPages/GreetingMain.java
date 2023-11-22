@@ -1,5 +1,6 @@
 package com.example.harddisks.AuthPages;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -7,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.harddisks.MainPages.MainPage;
 import com.example.harddisks.R;
 
-public class GreetingMain extends AppCompatActivity {
+public class GreetingMain extends AppCompatActivity implements AuthorizationFragment.OnAuthorizationSuccessListener {
 
     private NavController navController;
     @Override
@@ -21,5 +23,13 @@ public class GreetingMain extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
         navController = navHostFragment.getNavController();
+
+    }
+
+    @Override
+    public void onAuthorizationSuccess() {
+        Intent intent = new Intent(this, MainPage.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

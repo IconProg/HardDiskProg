@@ -12,4 +12,8 @@
     <string name="passwordRule">Используйте больше 8 символов, цифры и специальные знаки</string>
     <string name="regWithEmail">Зарегистрироваться при помощью почты</string>
     <string name="haveAcc">Уже имеете аккаунт?</string>
+    <string name="noAcc">Нет аккаунта?</string>
+    <string name="authorText">Разработчик программы</string>
+    <string name="aboutProg">О программе</string>
+    <string name="instruction_text">Инструкция для пользователя</string>
 </resources>

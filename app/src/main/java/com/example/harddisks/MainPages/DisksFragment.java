@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.harddisks.R;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +37,18 @@ import java.util.List;
 public class DisksFragment extends Fragment {
 
     private List<DiskDataClass> diskList;
+    ImageSwitcher favorite_switcher;
     private ListView diskListView;
     private DiskAdapter adapter;
+
+    private boolean isRedHeart = false;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference disksRef = database.getReference("disks_data");
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+    StorageReference imagesRef = storageRef.child("images/image.jpg");
 
     private DiskDatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -65,6 +78,7 @@ public class DisksFragment extends Fragment {
 
         final NavController navController = Navigation.findNavController(view);
 
+        favorite_switcher = (ImageSwitcher) view.findViewById(R.id.imageSwitcherHeart);
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
@@ -77,7 +91,6 @@ public class DisksFragment extends Fragment {
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_favoriteFragment));
         comparison.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_comprasionFragment));
-
 
     }
 
@@ -104,13 +117,12 @@ public class DisksFragment extends Fragment {
                 Log.e(TAG, "Error reading data", error.toException());
             }
         });
-
     }
 
     public void addDisk(){
 
-        DiskDataClass newDiskDataClass = new DiskDataClass("https://c.dns-shop.ru/thumb/st1/fit/200/200/0c62856a847ab02f71ec3c59ef4b9d63/531e1e880acf7fac191e35a5d616bb6b920d77fa31e8929909b1d7c5985e3b58.jpg",
-                "WD Blue", "131123", 1000, 7200, 64, true);
+        DiskDataClass newDiskDataClass = new DiskDataClass("https://firebasestorage.googleapis.com/v0/b/harddisks-3f306.appspot.com/o/WDBLUE.png?alt=media&token=7eb1e999-2b0d-4680-9d34-0cebc394f259",
+                "WD Blue", "131123", 1000, 6, 7200, 64, true);
 
         if (dbHelper.isManufacturerCodeUnique(newDiskDataClass.manufacturerCode)) {
             String key = disksRef.push().getKey();
@@ -121,5 +133,6 @@ public class DisksFragment extends Fragment {
 
         adapter = new DiskAdapter(requireContext(), R.layout.list_item_disk, diskList);
         diskListView.setAdapter(adapter);
+
     }
 }

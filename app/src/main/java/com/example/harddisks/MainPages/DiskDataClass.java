@@ -5,17 +5,20 @@ public class DiskDataClass {
     public String model;
     public String manufacturerCode;
     public int capacityGB;
+
+    public int speedInterface;
     public int rotationSpeed;
     public int cacheSizeMB;
     public boolean raidSupport;
 
     public DiskDataClass() {}
 
-    public DiskDataClass(String imageUrl, String model, String manufacturerCode, int capacityGB, int rotationSpeed, int cacheSizeMB, boolean raidSupport) {
+    public DiskDataClass(String imageUrl, String model, String manufacturerCode, int capacityGB, int speedInterface, int rotationSpeed, int cacheSizeMB, boolean raidSupport) {
         this.imageUrl = imageUrl;
         this.model = model;
         this.manufacturerCode = manufacturerCode;
         this.capacityGB = capacityGB;
+        this.speedInterface = speedInterface;
         this.rotationSpeed = rotationSpeed;
         this.cacheSizeMB = cacheSizeMB;
         this.raidSupport = raidSupport;
@@ -27,6 +30,10 @@ public class DiskDataClass {
 
     public int getCapacity() {
         return capacityGB;
+    }
+
+    public int getSpeedInterface() {
+        return speedInterface;
     }
 
     public int getSpindleSpeed() {
@@ -75,5 +82,9 @@ public class DiskDataClass {
 
     public void setSpindleSpeed(int rotationSpeed) {
         this.rotationSpeed = rotationSpeed;
+    }
+
+    public void setSpeedInterface(int speedInterface) {
+        this.speedInterface = speedInterface;
     }
 }

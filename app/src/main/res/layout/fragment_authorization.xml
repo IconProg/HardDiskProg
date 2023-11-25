@@ -32,6 +32,8 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -49,6 +51,8 @@
         android:inputType="textPassword"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_auth" />

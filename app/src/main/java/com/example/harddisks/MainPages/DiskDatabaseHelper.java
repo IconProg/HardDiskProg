@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DiskDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "disk_database";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_NAME = "disks";
     private static final String COLUMN_ID = "id";
@@ -20,6 +20,7 @@ public class DiskDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_MODEL = "model";
     private static final String COLUMN_MANUFACTURER_CODE = "manufacturer_code";
     private static final String COLUMN_CAPACITY = "capacity";
+    private static final String COLUMN_SPEED_INTERFACE = "speed_interface";
     private static final String COLUMN_SPINDLE_SPEED = "spindle_speed";
     private static final String COLUMN_CACHE_SIZE = "cache_size";
     private static final String COLUMN_HAS_RAID = "has_raid";
@@ -36,6 +37,7 @@ public class DiskDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_MODEL + " TEXT, " +
                 COLUMN_MANUFACTURER_CODE + " TEXT UNIQUE, " +
                 COLUMN_CAPACITY + " REAL, " +
+                COLUMN_SPEED_INTERFACE + " INTEGER, " +
                 COLUMN_SPINDLE_SPEED + " INTEGER, " +
                 COLUMN_CACHE_SIZE + " INTEGER, " +
                 COLUMN_HAS_RAID + " INTEGER)";
@@ -55,6 +57,7 @@ public class DiskDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MODEL, disk.getModel());
         values.put(COLUMN_MANUFACTURER_CODE, disk.getManufacturerCode());
         values.put(COLUMN_CAPACITY, disk.getCapacity());
+        values.put(COLUMN_SPEED_INTERFACE, disk.getSpeedInterface());
         values.put(COLUMN_SPINDLE_SPEED, disk.getSpindleSpeed());
         values.put(COLUMN_CACHE_SIZE, disk.getCacheSize());
         values.put(COLUMN_HAS_RAID, disk.hasRaid() ? 1 : 0);
@@ -113,6 +116,7 @@ public class DiskDatabaseHelper extends SQLiteOpenHelper {
                     disk.setImageUrl(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_URL)));
                     disk.setModel(cursor.getString(cursor.getColumnIndex(COLUMN_MODEL)));
                     disk.setManufacturerCode(cursor.getString(cursor.getColumnIndex(COLUMN_MANUFACTURER_CODE)));
+                    disk.setSpeedInterface(cursor.getInt(cursor.getColumnIndex(COLUMN_SPEED_INTERFACE)));
                     disk.setCapacity(cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY)));
                     disk.setSpindleSpeed(cursor.getInt(cursor.getColumnIndex(COLUMN_SPINDLE_SPEED)));
                     disk.setCacheSize(cursor.getInt(cursor.getColumnIndex(COLUMN_CACHE_SIZE)));

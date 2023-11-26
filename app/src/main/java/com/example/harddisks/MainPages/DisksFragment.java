@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.harddisks.MainPages.HelpFunc.DiskAdapter;
+import com.example.harddisks.MainPages.HelpFunc.DiskDataClass;
+import com.example.harddisks.MainPages.HelpFunc.DiskDatabaseHelper;
 import com.example.harddisks.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,14 +84,12 @@ public class DisksFragment extends Fragment {
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
-        ImageView comparison = (ImageView) view.findViewById(R.id.comparison_logo);
         diskListView = (ListView) view.findViewById(R.id.disksList);
 
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_authorFragment));
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_programInfoFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_favoriteFragment));
-        comparison.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_comprasionFragment));
 
     }
 
@@ -121,18 +120,27 @@ public class DisksFragment extends Fragment {
 
     public void addDisk(){
 
-        DiskDataClass newDiskDataClass = new DiskDataClass("https://firebasestorage.googleapis.com/v0/b/harddisks-3f306.appspot.com/o/WDBLUE.png?alt=media&token=7eb1e999-2b0d-4680-9d34-0cebc394f259",
+        DiskDataClass wdBlueDisk = new DiskDataClass("https://firebasestorage.googleapis.com/v0/b/harddisks-3f306.appspot.com/o/WDBLUE.png?alt=media&token=7eb1e999-2b0d-4680-9d34-0cebc394f259",
                 "WD Blue", "131123", 1000, 6, 7200, 64, true);
+        DiskDataClass toshibaDisk = new DiskDataClass("https://firebasestorage.googleapis.com/v0/b/harddisks-3f306.appspot.com/o/Toshiba.png?alt=media&token=5caf76a3-8f05-4e62-8111-24c96a7c4b54",
+                "Toshiba P300", "HDWD110UZSVA", 1000, 6, 7200, 64, false);
 
-        if (dbHelper.isManufacturerCodeUnique(newDiskDataClass.manufacturerCode)) {
-            String key = disksRef.push().getKey();
-            disksRef.child(key).setValue(newDiskDataClass);
-        } else {
-
+        if (dbHelper.isManufacturerCodeUnique(wdBlueDisk.manufacturerCode)) {
+            disksRef.child(wdBlueDisk.manufacturerCode).setValue(wdBlueDisk);
         }
+
+        if (dbHelper.isManufacturerCodeUnique(toshibaDisk.manufacturerCode)) {
+            disksRef.child(toshibaDisk.manufacturerCode).setValue(toshibaDisk);
+        }
+
+        diskList.clear();
+        diskList.addAll(dbHelper.getAllDisks());
 
         adapter = new DiskAdapter(requireContext(), R.layout.list_item_disk, diskList);
         diskListView.setAdapter(adapter);
 
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

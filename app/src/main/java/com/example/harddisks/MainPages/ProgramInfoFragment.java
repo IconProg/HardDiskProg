@@ -11,6 +11,9 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.example.harddisks.R;
@@ -37,14 +40,18 @@ public class ProgramInfoFragment extends Fragment {
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
-        ImageView comparison = (ImageView) view.findViewById(R.id.comparison_logo);
+        WebView webView = view.findViewById(R.id.github);
 
         home.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_disksFragment));
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_authorFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_favoriteFragment));
-        comparison.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_comprasionFragment));
 
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
+        webView.setWebViewClient(new WebViewClient());
+
+        webView.loadUrl("https://github.com/IconProg/HardDiskProg");
     }
 }

@@ -1,4 +1,4 @@
-package com.example.harddisks.MainPages;
+package com.example.harddisks.MainPages.HelpFunc;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -134,5 +134,38 @@ public class DiskDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return diskList;
+    }
+
+    @SuppressLint("Range")
+    public DiskDataClass getDiskByManufacturerCode(String manufacturerCode) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        DiskDataClass diskFavorite = null;
+
+        try {
+            String selection = COLUMN_MANUFACTURER_CODE + "=?";
+            String[] selectionArgs = {manufacturerCode};
+
+            cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                diskFavorite = new DiskDataClass();
+                diskFavorite.setImageUrl(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_URL)));
+                diskFavorite.setModel(cursor.getString(cursor.getColumnIndex(COLUMN_MODEL)));
+                diskFavorite.setManufacturerCode(cursor.getString(cursor.getColumnIndex(COLUMN_MANUFACTURER_CODE)));
+                diskFavorite.setSpeedInterface(cursor.getInt(cursor.getColumnIndex(COLUMN_SPEED_INTERFACE)));
+                diskFavorite.setCapacity(cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY)));
+                diskFavorite.setSpindleSpeed(cursor.getInt(cursor.getColumnIndex(COLUMN_SPINDLE_SPEED)));
+                diskFavorite.setCacheSize(cursor.getInt(cursor.getColumnIndex(COLUMN_CACHE_SIZE)));
+                diskFavorite.setHasRaid(cursor.getInt(cursor.getColumnIndex(COLUMN_HAS_RAID)) == 1);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return diskFavorite;
     }
 }

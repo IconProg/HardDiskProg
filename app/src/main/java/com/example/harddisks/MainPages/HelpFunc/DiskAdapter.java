@@ -1,4 +1,4 @@
-package com.example.harddisks.MainPages;
+package com.example.harddisks.MainPages.HelpFunc;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,12 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.harddisks.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
     private boolean isRedHeart = false;
+
+    private DatabaseReference userFavoriteDisksRef;
 
     private ImageSwitcher imageSwitcher;
 
@@ -46,13 +51,20 @@ public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
         TextView textSecond = view.findViewById(R.id.textSecond);
         TextView textViewTopNumber = view.findViewById(R.id.textViewTopNumber);
 
+        userFavoriteDisksRef = FirebaseDatabase.getInstance().getReference()
+                .child("user_data")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("favorite_disks");
+
         if(imageSwitcher != null) {
             imageSwitcher.setOnClickListener(view2 -> {
                 isRedHeart = !isRedHeart;
                 if (isRedHeart) {
                     imageSwitcher.setImageResource(R.drawable.red_big_heart);
+                    userFavoriteDisksRef.child("disk_code").setValue(disk.getManufacturerCode());
                 } else {
                     imageSwitcher.setImageResource(R.drawable.big_heart);
+                    userFavoriteDisksRef.child("disk_code").removeValue();
                 }
             });
         }
@@ -65,15 +77,12 @@ public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
             mainTextDisk.setText(disk.getCapacity() + " ГБ Жесткий диск " + disk.getModel() + " [" + disk.getManufacturerCode() + "] " + disk.getSpeedInterface() + " Гбит/с, " + disk.getSpindleSpeed() + " об/мин, кэш память - " +
                     disk.getCacheSize() + ", RAID");
             } else {
-                mainTextDisk.setText(disk.getCapacity() + "ГБ Жесткий диск " + disk.getModel() + " [" + disk.getManufacturerCode() + "] " + disk.getSpeedInterface() + " Гбит/с, " + disk.getSpindleSpeed() + " об/мин, кэш память - " +
+                mainTextDisk.setText(disk.getCapacity() + " ГБ Жесткий диск " + disk.getModel() + " [" + disk.getManufacturerCode() + "] " + disk.getSpeedInterface() + " Гбит/с, " + disk.getSpindleSpeed() + " об/мин, кэш память - " +
                         disk.getCacheSize());
             }
 
             textSecond.setText("Мы добавим описание позже");
 
-
-
-            // textViewTopNumber.setText("Top #" + (position + 1));
         }
 
         return view;

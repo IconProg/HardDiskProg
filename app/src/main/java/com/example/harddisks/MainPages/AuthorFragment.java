@@ -35,13 +35,11 @@ public class AuthorFragment extends Fragment {
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
-        ImageView comparison = (ImageView) view.findViewById(R.id.comparison_logo);
 
         home.setOnClickListener(view1 -> navController.navigate(R.id.action_authorFragment_to_disksFragment));
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_authorFragment_to_programInfoFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_authorFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_authorFragment_to_favoriteFragment));
-        comparison.setOnClickListener(view1 -> navController.navigate(R.id.action_authorFragment_to_comprasionFragment));
 
 
     }

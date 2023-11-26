@@ -1,4 +1,4 @@
-package com.example.harddisks.MainPages;
+package com.example.harddisks.MainPages.HelpFunc;
 
 public class DiskDataClass {
     public String imageUrl;

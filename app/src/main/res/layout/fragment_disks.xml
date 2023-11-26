@@ -51,119 +51,42 @@
     app:layout_constraintStart_toStartOf="parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/rating"
-        android:layout_width="160dp"
-        android:layout_height="20dp"
-        app:cardCornerRadius="4dp"
-        android:layout_marginLeft="16dp"
-        app:cardBackgroundColor="@color/GrayForFilter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="По рейтингу"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="sans-serif-light"/>
-
-        <ImageView
-            android:id="@+id/downForRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"
-            android:layout_marginLeft="140dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/upForRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_up"
-            android:layout_marginLeft="140dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/memory"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="20dp"
-        app:cardCornerRadius="4dp"
-        android:layout_marginLeft="16dp"
+        android:foregroundGravity="center"
         app:cardBackgroundColor="@color/GrayForFilter"
+        app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/rating"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Память"
-            android:textColor="@color/black"
             android:layout_marginLeft="10dp"
-            android:fontFamily="sans-serif-light"/>
+            android:fontFamily="sans-serif-light"
+            android:text="Память"
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/downForMemory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="180dp"
             android:layout_marginTop="8dp"
-            android:visibility="gone"/>
+            android:src="@drawable/arrow_down"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/upForMemory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/arrow_up"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/price"
-        android:layout_width="90dp"
-        android:layout_height="20dp"
-        app:cardCornerRadius="4dp"
-        android:layout_marginLeft="16dp"
-        app:cardBackgroundColor="@color/GrayForFilter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/memory"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Цена"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="sans-serif-light"/>
-        
-        <ImageView
-            android:id="@+id/downForPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/upForPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_up"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </androidx.cardview.widget.CardView>
 
@@ -191,11 +114,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <GridLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:columnCount="5"
         android:background="@color/blackForBottom"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -205,62 +130,43 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/main_menu"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/user_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/user"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_menu_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/about_prog_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/about_prog"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/user_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/instruction_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/intruction"
-            android:layout_marginLeft="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/about_prog_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/favorite_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/favourites"
-            android:layout_marginLeft="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/instruction_logo"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/comparison_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/comparison"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/favorite_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

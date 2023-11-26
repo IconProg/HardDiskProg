@@ -48,10 +48,8 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:text="Перед вами логотип программы, который был создан при помощи нейросети. В нем очень много смысла, главное самому его
-придумать. \nПрограмма создавалась в течение  нескольких дней при помощи силы воли и парочки энергетиков (весь бюджет ушел
-на них). \nПрограмма способна локально сохранять данные, отображать, искать и сортировать информацию. Также есть возможность
-выбрать избранные жесткие диски и  сравнить их."
+        android:text="Данная программа создавалась как справочник о жестких дисках. В ней можно посмотреть всю информацию
+о них. Снизу гитхаб, на котором можно посмотреть как создавалсь программа."
         android:textColor="@color/goodWhite"
         android:textSize="16sp"
         android:layout_marginTop="20dp"
@@ -59,12 +57,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_for_info" />
 
+    <WebView
+        android:id="@+id/github"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prog_text2" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <GridLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:columnCount="5"
         android:background="@color/blackForBottom"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -74,62 +84,43 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/main_menu"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/user_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/user"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_menu_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/about_prog_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/about_prog"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/user_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/instruction_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/intruction"
-            android:layout_marginLeft="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/about_prog_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/favorite_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/favourites"
-            android:layout_marginLeft="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/instruction_logo"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/comparison_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/comparison"
-            android:layout_marginLeft="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/favorite_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

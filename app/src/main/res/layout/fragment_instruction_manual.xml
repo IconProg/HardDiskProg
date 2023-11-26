@@ -183,11 +183,13 @@
 
     </ScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <GridLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:columnCount="5"
         android:background="@color/blackForBottom"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -196,63 +198,44 @@
             android:id="@+id/main_menu_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
             android:src="@drawable/main_menu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/user_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="24dp"
             android:src="@drawable/user"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_menu_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/about_prog_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
             android:src="@drawable/about_prog"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/user_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/instruction_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="28dp"
             android:src="@drawable/intruction"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/about_prog_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
         <ImageView
             android:id="@+id/favorite_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="26dp"
             android:src="@drawable/favourites"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/instruction_logo"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/comparison_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
-            android:src="@drawable/comparison"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/favorite_logo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

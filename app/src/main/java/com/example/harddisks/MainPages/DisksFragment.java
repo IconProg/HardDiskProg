@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,11 @@ import java.util.List;
 public class DisksFragment extends Fragment {
 
     private List<DiskDataClass> diskList;
+
+    private List<DiskDataClass> favoriteDisks;
     ImageSwitcher favorite_switcher;
+
+    private Handler handler = new Handler();
     private ListView diskListView;
     private DiskAdapter adapter;
 
@@ -49,7 +54,6 @@ public class DisksFragment extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
 
-    StorageReference imagesRef = storageRef.child("images/image.jpg");
 
     private DiskDatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -79,7 +83,6 @@ public class DisksFragment extends Fragment {
 
         final NavController navController = Navigation.findNavController(view);
 
-        favorite_switcher = (ImageSwitcher) view.findViewById(R.id.imageSwitcherHeart);
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
@@ -107,7 +110,6 @@ public class DisksFragment extends Fragment {
                 }
 
                 dbHelper.loadDisksFromFirebase(disks);
-
                 addDisk();
             }
 
@@ -116,6 +118,7 @@ public class DisksFragment extends Fragment {
                 Log.e(TAG, "Error reading data", error.toException());
             }
         });
+
     }
 
     public void addDisk(){
@@ -136,6 +139,7 @@ public class DisksFragment extends Fragment {
         diskList.clear();
         diskList.addAll(dbHelper.getAllDisks());
 
+
         adapter = new DiskAdapter(requireContext(), R.layout.list_item_disk, diskList);
         diskListView.setAdapter(adapter);
 
@@ -143,4 +147,5 @@ public class DisksFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+
 }

@@ -7,66 +7,17 @@
     android:background="@color/blackForBackground"
     tools:context=".MainPages.AuthorFragment">
 
-    <Button
-        android:id="@+id/adminButton"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_hd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:backgroundTint="@color/GrayForFilter"
-        app:layout_constraintBottom_toTopOf="@+id/email_author"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="20dp"
         android:textColor="@color/black"
-        android:text="admin"/>
-
-    <TextView
-        android:id="@+id/authorText1"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/authorText"
-        android:textColor="@color/goodWhite"
-        android:textSize="24sp"
-        android:layout_marginTop="65dp"
+        android:backgroundTint="@color/GrayForFilter"
+        android:text="Добавить новый жд"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/authorPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/author"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authorText1"/>
-
-    <TextView
-        android:id="@+id/authorText2"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="ИКБО-26-21 Буйлов Даниил Сергеевич"
-        android:textColor="@color/goodWhite"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authorPhoto" />
-
-    <TextView
-        android:id="@+id/email_author"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Обратная связь - buylov.danya@bk.ru"
-        android:textColor="@color/goodWhite"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_menu" />
 
     <GridLayout
         android:id="@+id/bottom_menu"

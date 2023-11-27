@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_authorFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -95,5 +98,38 @@
         <action
             android:id="@+id/action_programInfoFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.harddisks.MainPages.Admin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" >
+        <action
+            android:id="@+id/action_adminFragment_to_addDiskFragment"
+            app:destination="@id/addDiskFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDiskFragment"
+        android:name="com.example.harddisks.MainPages.Admin.AddDiskFragment"
+        android:label="fragment_add_disk"
+        tools:layout="@layout/fragment_add_disk" >
+        <action
+            android:id="@+id/action_addDiskFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
 </navigation>

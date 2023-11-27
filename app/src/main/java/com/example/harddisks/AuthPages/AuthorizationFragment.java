@@ -74,12 +74,9 @@ public class AuthorizationFragment extends Fragment {
         });
 
         registration.setOnClickListener(v -> {
-            // navController.popBackStack();
             navController.navigate(R.id.action_authorization_to_registration);
         });
 
-//        NavDirections actionToFirstGraph = CombinedGraphFragmentDirections.actionToFirstGraph();
-//        Navigation.findNavController(view).navigate(actionToFirstGraph);
 
     }
 }

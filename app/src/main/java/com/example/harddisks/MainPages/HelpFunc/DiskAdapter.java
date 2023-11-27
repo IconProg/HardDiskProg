@@ -7,24 +7,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.harddisks.MainPages.FavoriteFragment;
 import com.example.harddisks.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
-    private boolean isRedHeart = false;
+
+    private List<String> favoriteDisks = new ArrayList<>();
+
+    private List<DiskDataClass> disksForFavorite = new ArrayList<>();
+    private OnFavoriteChangeListener onFavoriteChangeListener;
 
     private DatabaseReference userFavoriteDisksRef;
-
-    private ImageSwitcher imageSwitcher;
 
     private Context context;
     private int resource;
@@ -45,29 +53,42 @@ public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
         }
         DiskDataClass disk = getItem(position);
 
-        ImageSwitcher imageSwitcher = view.findViewById(R.id.imageSwitcherHeart);
+
         ImageView imageViewDisk = view.findViewById(R.id.imageViewDisk);
         TextView mainTextDisk = view.findViewById(R.id.mainTextDisk);
         TextView textSecond = view.findViewById(R.id.textSecond);
-        TextView textViewTopNumber = view.findViewById(R.id.textViewTopNumber);
 
         userFavoriteDisksRef = FirebaseDatabase.getInstance().getReference()
                 .child("user_data")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("favorite_disks");
 
-        if(imageSwitcher != null) {
-            imageSwitcher.setOnClickListener(view2 -> {
-                isRedHeart = !isRedHeart;
-                if (isRedHeart) {
-                    imageSwitcher.setImageResource(R.drawable.red_big_heart);
-                    userFavoriteDisksRef.child("disk_code").setValue(disk.getManufacturerCode());
-                } else {
-                    imageSwitcher.setImageResource(R.drawable.big_heart);
-                    userFavoriteDisksRef.child("disk_code").removeValue();
+        Button addToFavoriteButton = view.findViewById(R.id.add_in_favorite);
+        Button removeFromFavoriteButton = view.findViewById(R.id.delete_in_favorite);
+
+        loadFavoriteDisks();
+
+        addToFavoriteButton.setOnClickListener(v -> {
+            // Добавление диска в избранное
+            if (disk != null && !favoriteDisks.contains(disk.getManufacturerCode())) {
+                favoriteDisks.add(disk.getManufacturerCode());
+                updateList(favoriteDisks);
+            }
+        });
+
+        removeFromFavoriteButton.setOnClickListener(v -> {
+            // Удаление диска из избранного
+            if (disk != null && favoriteDisks.contains(disk.getManufacturerCode())) {
+                int pos = favoriteDisks.indexOf(disk.getManufacturerCode());
+                favoriteDisks.remove(disk.getManufacturerCode());
+                if (onFavoriteChangeListener != null) {
+                    disksForFavorite.remove(pos);
+                    onFavoriteChangeListener.onFavoriteChanged(disksForFavorite);
                 }
-            });
-        }
+                updateList(favoriteDisks);
+            }
+        });
+
 
         if (disk != null) {
 
@@ -81,11 +102,72 @@ public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
                         disk.getCacheSize());
             }
 
-            textSecond.setText("Мы добавим описание позже");
+            textSecond.setText("Описание будет добавлено позже");
 
         }
 
         return view;
     }
 
+    public void updateData(List<DiskDataClass> newDisks) {
+        clear();
+        addAll(newDisks);
+        notifyDataSetChanged();
+    }
+
+
+    private void loadFavoriteDisks() {
+        userFavoriteDisksRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                favoriteDisks.clear();
+                disksForFavorite.clear();
+
+                for (DataSnapshot diskSnapshot : dataSnapshot.getChildren()) {
+                    String manufacturerCode = diskSnapshot.getValue(String.class);
+                    if (manufacturerCode != null) {
+                        // Здесь используется manufacturerCode для получения диска из базы данных
+                        DiskDatabaseHelper dbHelper = new DiskDatabaseHelper(context);
+                        DiskDataClass disk = dbHelper.getDiskByManufacturerCode(manufacturerCode);
+                        disksForFavorite.add(disk);
+                        favoriteDisks.add(manufacturerCode);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@androidx.annotation.NonNull DatabaseError databaseError) {
+                // Обработка ошибок
+            }
+        });
+    }
+
+    public void updateList(List<String> favoriteDisksList){
+
+        userFavoriteDisksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Очищает существующий список в Firebase
+                userFavoriteDisksRef.removeValue();
+
+                // Проходит по списку и добавляет только уникальные manufacturerCode
+                for (String manufacturerCode : favoriteDisksList) {
+                    if (!dataSnapshot.hasChild(manufacturerCode)) {
+                        userFavoriteDisksRef.push().setValue(manufacturerCode);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Обработка ошибки при чтении из Firebase
+            }
+        });
+    }
+
+    public void setOnFavoriteChangeListener(OnFavoriteChangeListener listener) {
+        this.onFavoriteChangeListener = listener;
+    }
 }

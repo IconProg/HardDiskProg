@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import com.example.harddisks.MainPages.HelpFunc.DiskAdapter;
 import com.example.harddisks.MainPages.HelpFunc.DiskDataClass;
 import com.example.harddisks.MainPages.HelpFunc.DiskDatabaseHelper;
+import com.example.harddisks.MainPages.HelpFunc.OnFavoriteChangeListener;
 import com.example.harddisks.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements OnFavoriteChangeListener {
 
     private List<DiskDataClass> favoriteDisks;
     private Handler handler = new Handler();
@@ -41,7 +43,6 @@ public class FavoriteFragment extends Fragment {
 
     private DiskAdapter adapter;
 
-    private boolean isRedHeart = true;
     private DatabaseReference userFavoriteDisksRef;
     private DiskDatabaseHelper diskDatabaseHelper;
 
@@ -59,8 +60,10 @@ public class FavoriteFragment extends Fragment {
 
         diskDatabaseHelper = new DiskDatabaseHelper(requireContext());
 
+
         favoriteDisks = new ArrayList<>();
         adapter = new DiskAdapter(requireContext(), R.layout.list_item_disk, favoriteDisks);
+        adapter.setOnFavoriteChangeListener(this);
 
         return view;
     }
@@ -86,25 +89,19 @@ public class FavoriteFragment extends Fragment {
 
         loadFavoriteDisks();
 
-
-        handler.postDelayed(() -> {
-            imageSwitcherHeart = view.findViewById(R.id.imageSwitcherHeart);
-            if (imageSwitcherHeart != null) {
-                setRedHeart(imageSwitcherHeart);
-            }
-        }, 100);
     }
 
     private void loadFavoriteDisks() {
         userFavoriteDisksRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 favoriteDisks.clear();
 
                 for (DataSnapshot diskSnapshot : dataSnapshot.getChildren()) {
                     String manufacturerCode = diskSnapshot.getValue(String.class);
                     if (manufacturerCode != null) {
-                        // Здесь можно использовать manufacturerCode для получения диска из базы данных
+                        // Здесь используется manufacturerCode для получения диска из базы данных
                         DiskDatabaseHelper dbHelper = new DiskDatabaseHelper(requireContext());
                         DiskDataClass disk = dbHelper.getDiskByManufacturerCode(manufacturerCode);
                         if (disk != null) {
@@ -128,15 +125,11 @@ public class FavoriteFragment extends Fragment {
         });
     }
 
-    private void setRedHeart(ImageSwitcher imageSwitcherHeart) {
-        ((ImageView) imageSwitcherHeart.getCurrentView()).setImageResource(R.drawable.red_big_heart);
-    }
-
-    private void addToFavorites(String manufacturerCode) {
-        userFavoriteDisksRef.child(manufacturerCode).child("disk_code").setValue(manufacturerCode);
-    }
-
-    private void removeFromFavorites(String manufacturerCode) {
-        userFavoriteDisksRef.child(manufacturerCode).removeValue();
+    @Override
+    public void onFavoriteChanged(List<DiskDataClass> updatedFavoriteDisks) {
+        // Обновите ваш список избранных во фрагменте
+        favoriteDisks = updatedFavoriteDisks;
+        // Теперь обновите адаптер
+        adapter.updateData(favoriteDisks);
     }
 }

@@ -72,7 +72,7 @@
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:columnCount="5"
+        android:columnCount="6"
         android:background="@color/blackForBottom"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,6 +116,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/favourites"
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"/>
+
+        <ImageView
+            android:id="@+id/compare_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/comparison"
             android:layout_gravity="center"
             android:layout_columnWeight="1"/>
 

@@ -36,11 +36,13 @@ public class InstructionManualFragment extends Fragment {
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
+        ImageView compare = (ImageView) view.findViewById(R.id.compare_logo);
 
         home.setOnClickListener(view1 -> navController.navigate(R.id.action_instructionManualFragment_to_disksFragment));
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_instructionManualFragment_to_authorFragment));
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_instructionManualFragment_to_programInfoFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_instructionManualFragment_to_favoriteFragment));
+        compare.setOnClickListener(view1 -> navController.navigate(R.id.action_instructionManualFragment_to_compareFragment));
 
 
     }

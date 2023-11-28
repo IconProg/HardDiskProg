@@ -40,12 +40,14 @@ public class ProgramInfoFragment extends Fragment {
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
+        ImageView compare = (ImageView) view.findViewById(R.id.compare_logo);
         WebView webView = view.findViewById(R.id.github);
 
         home.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_disksFragment));
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_authorFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_favoriteFragment));
+        compare.setOnClickListener(view1 -> navController.navigate(R.id.action_programInfoFragment_to_compareFragment));
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

@@ -87,6 +87,7 @@ public class FavoriteFragment extends Fragment implements OnFavoriteChangeListen
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
+        ImageView compare = (ImageView) view.findViewById(R.id.compare_logo);
         upArrow = (ImageView) view.findViewById(R.id.upForMemory);
         downArrow = (ImageView) view.findViewById(R.id.downForMemory);
         CardView memory = (CardView) view.findViewById(R.id.memory);
@@ -96,6 +97,7 @@ public class FavoriteFragment extends Fragment implements OnFavoriteChangeListen
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_authorFragment));
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_programInfoFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_instructionManualFragment));
+        compare.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_compareFragment));
 
         loadFavoriteDisks();
 

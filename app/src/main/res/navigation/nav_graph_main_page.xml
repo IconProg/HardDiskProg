@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_disksFragment_to_instructionManualFragment"
             app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_disksFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/authorFragment"
@@ -44,6 +47,9 @@
         <action
             android:id="@+id/action_authorFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_authorFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -62,6 +68,9 @@
         <action
             android:id="@+id/action_favoriteFragment_to_instructionManualFragment"
             app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/instructionManualFragment"
@@ -80,6 +89,9 @@
         <action
             android:id="@+id/action_instructionManualFragment_to_disksFragment"
             app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_instructionManualFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/programInfoFragment"
@@ -98,6 +110,9 @@
         <action
             android:id="@+id/action_programInfoFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_programInfoFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"
@@ -122,6 +137,9 @@
         <action
             android:id="@+id/action_adminFragment_to_instructionManualFragment"
             app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_compareFragment"
+            app:destination="@id/compareFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDiskFragment"
@@ -131,5 +149,26 @@
         <action
             android:id="@+id/action_addDiskFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/compareFragment"
+        android:name="com.example.harddisks.MainPages.CompareFragment"
+        android:label="fragment_compare"
+        tools:layout="@layout/fragment_compare" >
+        <action
+            android:id="@+id/action_compareFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+        <action
+            android:id="@+id/action_compareFragment_to_programInfoFragment"
+            app:destination="@id/programInfoFragment" />
+        <action
+            android:id="@+id/action_compareFragment_to_disksFragment"
+            app:destination="@id/disksFragment" />
+        <action
+            android:id="@+id/action_compareFragment_to_instructionManualFragment"
+            app:destination="@id/instructionManualFragment" />
+        <action
+            android:id="@+id/action_compareFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
 </navigation>

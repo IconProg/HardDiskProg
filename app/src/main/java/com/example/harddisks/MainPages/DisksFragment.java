@@ -98,6 +98,7 @@ public class DisksFragment extends Fragment {
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
+        ImageView compare = (ImageView) view.findViewById(R.id.compare_logo);
         upArrow = (ImageView) view.findViewById(R.id.upForMemory);
         downArrow = (ImageView) view.findViewById(R.id.downForMemory);
         CardView memory = (CardView) view.findViewById(R.id.memory);
@@ -108,6 +109,7 @@ public class DisksFragment extends Fragment {
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_programInfoFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_favoriteFragment));
+        compare.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_compareFragment));
 
 
         memory.setOnClickListener(view1 -> filterByMemory());

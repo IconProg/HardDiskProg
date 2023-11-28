@@ -39,6 +39,7 @@ public class AdminFragment extends Fragment {
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
+        ImageView compare = (ImageView) view.findViewById(R.id.compare_logo);
         Button addDisk = (Button) view.findViewById(R.id.add_hd);
 
 
@@ -48,5 +49,6 @@ public class AdminFragment extends Fragment {
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_adminFragment_to_programInfoFragment));
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_adminFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_adminFragment_to_favoriteFragment));
+        compare.setOnClickListener(view1 -> navController.navigate(R.id.action_adminFragment_to_compareFragment));
     }
 }

@@ -12,6 +12,8 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SearchView;
+
 import com.example.harddisks.MainPages.FavoriteFragment;
 import com.example.harddisks.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ public class DiskAdapter extends ArrayAdapter<DiskDataClass> {
     private OnFavoriteChangeListener onFavoriteChangeListener;
 
     private DatabaseReference userFavoriteDisksRef;
+
 
     private Context context;
     private int resource;

@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,30 +35,38 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class DisksFragment extends Fragment {
 
     private List<DiskDataClass> diskList;
-
-    private List<DiskDataClass> favoriteDisks;
-    ImageSwitcher favorite_switcher;
+    private List<DiskDataClass> originalDiskList;
 
     private Handler handler = new Handler();
     private ListView diskListView;
     private DiskAdapter adapter;
 
-    private boolean isRedHeart = false;
+    private ImageView upArrow;
+    private ImageView downArrow;
+
+    private SearchView search;
+
+    private boolean up = false;
+    private boolean down = false;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference disksRef = database.getReference("disks_data");
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
+
     StorageReference storageRef = storage.getReference();
 
 
     private DiskDatabaseHelper dbHelper;
     private SQLiteDatabase db;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +82,7 @@ public class DisksFragment extends Fragment {
             e.printStackTrace();
         }
         diskList = dbHelper.getAllDisks();
+        originalDiskList = new ArrayList<>(diskList); // Копирование оригинального списка
         getDisk();
 
         return view;
@@ -87,6 +98,10 @@ public class DisksFragment extends Fragment {
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
         ImageView favorite = (ImageView) view.findViewById(R.id.favorite_logo);
+        upArrow = (ImageView) view.findViewById(R.id.upForMemory);
+        downArrow = (ImageView) view.findViewById(R.id.downForMemory);
+        CardView memory = (CardView) view.findViewById(R.id.memory);
+        search = (SearchView) view.findViewById(R.id.search);
         diskListView = (ListView) view.findViewById(R.id.disksList);
 
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_authorFragment));
@@ -94,9 +109,28 @@ public class DisksFragment extends Fragment {
         instruction.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_instructionManualFragment));
         favorite.setOnClickListener(view1 -> navController.navigate(R.id.action_disksFragment_to_favoriteFragment));
 
+
+        memory.setOnClickListener(view1 -> filterByMemory());
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Вызов метода фильтрации по имени диска с использованием введенного текста
+                filterByName(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Вызов метода фильтрации по имени диска при изменении текста ввода
+                filterByName(newText);
+                return true;
+            }
+        });
+
     }
 
-    public void getDisk(){
+    public void getDisk() {
         disksRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -121,7 +155,7 @@ public class DisksFragment extends Fragment {
 
     }
 
-    public void addDisk(){
+    public void addDisk() {
 
         DiskDataClass wdBlueDisk = new DiskDataClass("https://firebasestorage.googleapis.com/v0/b/harddisks-3f306.appspot.com/o/WDBLUE.png?alt=media&token=7eb1e999-2b0d-4680-9d34-0cebc394f259",
                 "WD Blue", "131123", 1000, 6, 7200, 64, true);
@@ -147,5 +181,56 @@ public class DisksFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+
+    protected void filterByMemory() {
+        Comparator<DiskDataClass> memoryComparator = new Comparator<DiskDataClass>() {
+            @Override
+            public int compare(DiskDataClass disk1, DiskDataClass disk2) {
+                int memory1 = disk1.getCapacity();
+                int memory2 = disk2.getCapacity();
+                return Integer.compare(memory1, memory2);
+            }
+        };
+
+        if (down) {
+            Collections.sort(diskList, memoryComparator);
+            up = true;
+            down = false;
+            upArrow.setVisibility(View.VISIBLE);
+            downArrow.setVisibility(View.INVISIBLE);
+        } else {
+            Collections.sort(diskList, Collections.reverseOrder(memoryComparator));
+            up = false;
+            down = true;
+            upArrow.setVisibility(View.INVISIBLE);
+            downArrow.setVisibility(View.VISIBLE);
+        }
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
+    protected void filterByName(String query) {
+        List<DiskDataClass> filteredList = new ArrayList<>();
+
+        for (DiskDataClass disk : originalDiskList) {
+            // Приведение имени диска и введенного запрос к нижнему регистру и проверка, содержится ли запрос в имени диска
+            if (disk.getModel().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(disk);
+            }
+        }
+
+        // Обновление списка дисков с отфильтрованным списком
+        diskList.clear();
+        diskList.addAll(filteredList);
+
+        // Обновление адаптера для отображения изменений
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
 }

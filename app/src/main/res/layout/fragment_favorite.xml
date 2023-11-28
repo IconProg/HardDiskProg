@@ -42,7 +42,7 @@
                 android:id="@+id/downForMemory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="180dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/arrow_down"
                 android:visibility="gone" />
@@ -51,7 +51,7 @@
                 android:id="@+id/upForMemory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="180dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/arrow_up"
                 android:visibility="gone" />

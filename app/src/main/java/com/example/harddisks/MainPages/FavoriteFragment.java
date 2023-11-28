@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -31,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -39,9 +42,12 @@ public class FavoriteFragment extends Fragment implements OnFavoriteChangeListen
     private List<DiskDataClass> favoriteDisks;
     private Handler handler = new Handler();
 
-    private ImageSwitcher imageSwitcherHeart;
-
+    private ImageView upArrow;
+    private ImageView downArrow;
     private DiskAdapter adapter;
+
+    private boolean up = false;
+    private boolean down = false;
 
     private DatabaseReference userFavoriteDisksRef;
     private DiskDatabaseHelper diskDatabaseHelper;
@@ -81,7 +87,11 @@ public class FavoriteFragment extends Fragment implements OnFavoriteChangeListen
         ImageView author = (ImageView) view.findViewById(R.id.user_logo);
         ImageView about_prog = (ImageView) view.findViewById(R.id.about_prog_logo);
         ImageView instruction = (ImageView) view.findViewById(R.id.instruction_logo);
+        upArrow = (ImageView) view.findViewById(R.id.upForMemory);
+        downArrow = (ImageView) view.findViewById(R.id.downForMemory);
+        CardView memory = (CardView) view.findViewById(R.id.memory);
 
+        memory.setOnClickListener(view1 -> filterByMemory());
         home.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_disksFragment));
         author.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_authorFragment));
         about_prog.setOnClickListener(view1 -> navController.navigate(R.id.action_favoriteFragment_to_programInfoFragment));
@@ -131,5 +141,35 @@ public class FavoriteFragment extends Fragment implements OnFavoriteChangeListen
         favoriteDisks = updatedFavoriteDisks;
         // Теперь обновите адаптер
         adapter.updateData(favoriteDisks);
+    }
+
+    protected void filterByMemory() {
+        Comparator<DiskDataClass> memoryComparator = new Comparator<DiskDataClass>() {
+            @Override
+            public int compare(DiskDataClass disk1, DiskDataClass disk2) {
+                int memory1 = disk1.getCapacity();
+                int memory2 = disk2.getCapacity();
+                return Integer.compare(memory1, memory2);
+            }
+        };
+
+        if (down) {
+            Collections.sort(favoriteDisks, memoryComparator);
+            up = true;
+            down = false;
+            upArrow.setVisibility(View.VISIBLE);
+            downArrow.setVisibility(View.INVISIBLE);
+        } else {
+            Collections.sort(favoriteDisks, Collections.reverseOrder(memoryComparator));
+            up = false;
+            down = true;
+            upArrow.setVisibility(View.INVISIBLE);
+            downArrow.setVisibility(View.VISIBLE);
+        }
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
     }
 }
